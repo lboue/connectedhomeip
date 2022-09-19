@@ -28,6 +28,7 @@ else
     CHIP_ROOT="$MATTER_ROOT"
 fi
 
+
 source "$CHIP_ROOT/scripts/activate.sh"
 
 set -x
@@ -119,51 +120,47 @@ else
     shift
     while [ $# -gt 0 ]; do
         case $1 in
-            --wifi)
-                if [ -z "$2" ]; then
-                    echo "--wifi requires rs911x or wf200"
-                    exit 1
-                fi
-                if [ "$2" = "rs911x" ]; then
-                    optArgs+="use_rs911x=true"
-                elif [ "$2" = "wf200" ]; then
-                    optArgs+="use_wf200=true"
-                else
-                    echo "Wifi usage: --wifi rs911x|wf200"
-                    exit 1
-                fi
+        --wifi)
+            if [ -z "$2" ]; then
+                echo "--wifi requires rs911x or wf200"
+                exit 1
+            fi
+            if [ "$2" = "rs911x" ]; then
+                optArgs+="use_rs911x=true"
+            elif [ "$2" = "wf200" ]; then
+                optArgs+="use_wf200=true"
+            else
+                echo "Wifi usage: --wifi rs911x|wf200"
+                exit 1
+            fi
+            USE_WIFI=true
+            shift
+            shift
+            ;;
+        --sed)
+            optArgs+="enable_sleepy_device=true chip_openthread_ftd=false "
+            shift
+            ;;
+        --chip_enable_wifi_ipv4)
+            optArgs+="chip_enable_wifi_ipv4=true "
+            shift
+            ;;
+        --additional_data_advertising)
+            optArgs+="chip_enable_additional_data_advertising=true chip_enable_rotating_device_id=true "
+            shift
+            ;;
+        --use_ot_lib)
+            optArgs+="use_silabs_thread_lib=true chip_openthread_target=$SILABS_THREAD_TARGET openthread_external_platform=\"""\" "
+            shift
+            ;;
+        *)
+            if [ "$1" =~ *"use_rs911x=true"* ] || [ "$1" =~ *"use_wf200=true"* ]; then
                 USE_WIFI=true
-                shift
-                shift
-                ;;
-            --sed)
-                optArgs+="enable_sleepy_device=true chip_openthread_ftd=false "
-                shift
-                ;;
-            --chip_enable_wifi_ipv4)
-                optArgs+="chip_enable_wifi_ipv4=true "
-                shift
-                ;;
-            --additional_data_advertising)
-                optArgs+="chip_enable_additional_data_advertising=true chip_enable_rotating_device_id=true "
-                shift
-                ;;
-            --use_ot_lib)
-                optArgs+="use_silabs_thread_lib=true chip_openthread_target=$SILABS_THREAD_TARGET openthread_external_platform=\"""\" "
-                shift
-                ;;
-            --use_ot_coap_lib)
-                optArgs+="use_silabs_thread_lib=true chip_openthread_target=$SILABS_THREAD_TARGET openthread_external_platform=\"""\" use_thread_coap_lib=true "
-                shift
-                ;;
-            *)
-                if [ "$1" =~ *"use_rs911x=true"* ] || [ "$1" =~ *"use_wf200=true"* ]; then
-                    USE_WIFI=true
-                fi
+            fi
 
-                optArgs+=$1" "
-                shift
-                ;;
+            optArgs+=$1" "
+            shift
+            ;;
         esac
     done
 
