@@ -1,13 +1,12 @@
-# CHIP EFR32 Lighting Example
+# Matter EFR32 Lighting Example
 
-An example showing the use of CHIP on the Silicon Labs EFR32 MG12.
+An example showing the use of CHIP on the Silicon Labs EFR32 MG12 and MG24.
 
 <hr>
 
--   [CHIP EFR32 Lighting Example](#chip-efr32-lighting-example)
+-   [Matter EFR32 Lighting Example](#matter-efr32-lighting-example)
     -   [Introduction](#introduction)
     -   [Building](#building)
-        -   [Note](#note)
     -   [Flashing the Application](#flashing-the-application)
     -   [Viewing Logging Output](#viewing-logging-output)
     -   [Running the Complete Example](#running-the-complete-example)
@@ -16,27 +15,40 @@ An example showing the use of CHIP on the Silicon Labs EFR32 MG12.
     -   [Device Tracing](#device-tracing)
     -   [Memory settings](#memory-settings)
     -   [OTA Software Update](#ota-software-update)
+    -   [Group Communication (Multicast)](#group-communication-multicast)
+    -   [Building options](#building-options)
+        -   [Disabling logging](#disabling-logging)
+        -   [Debug build / release build](#debug-build--release-build)
+        -   [Disabling LCD](#disabling-lcd)
+        -   [KVS maximum entry count](#kvs-maximum-entry-count)
 
 <hr>
+
+> **NOTE:** Silicon Laboratories now maintains a public matter GitHub repo with
+> frequent releases thoroughly tested and validated. Developers looking to
+> develop matter products with silabs hardware are encouraged to use our latest
+> release with added tools and documentation.
+> [Silabs Matter Github](https://github.com/SiliconLabs/matter/releases)
 
 <a name="intro"></a>
 
 ## Introduction
 
 The EFR32 lighting example provides a baseline demonstration of a Light control
-device, built using CHIP and the Silicon Labs Gecko SDK. It can be controlled by
-a Chip controller over Openthread network.
+device, built using Matter and the Silicon Labs gecko SDK. It can be controlled
+by a Chip controller over an Openthread or Wifi network..
 
 The EFR32 device can be commissioned over Bluetooth Low Energy where the device
 and the Chip controller will exchange security information with the Rendez-vous
-procedure. Thread Network credentials are then provided to the EFR32 device,
-which will then join the network.
+procedure. If using Thread, Thread Network credentials are then provided to the
+EFR32 device which will then join the Thread network.
 
-The LCD on the Silabs WSTK shows a QR Code containing the required commissioning
-information for the Bluetooth LE (BLE) connection and starting the Rendez-vous procedure.
+If the LCD is enabled, the LCD on the Silabs WSTK shows a QR Code containing the
+needed commissioning information for the BLE connection and starting the
+Rendez-vous procedure.
 
 The lighting example is intended to serve both as a means to explore the
-workings of CHIP as well as a template for creating real products based on the
+workings of Matter as well as a template for creating real products based on the
 Silicon Labs platform.
 
 <a name="building"></a>
@@ -45,20 +57,24 @@ Silicon Labs platform.
 
 -   Download the
     [Simplicity Commander](https://www.silabs.com/mcu/programming-options)
-    command line tool, and ensure that `commander` is in your shell search path.
+    command line tool, and ensure that `commander` is your shell search path.
     (For Mac OS X, `commander` is located inside
     `Commander.app/Contents/MacOS/`.)
 
--   Download and install a suitable ARM GCC tool chain:
-    [GNU Arm Embedded Toolchain (arm-none-eabi)](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/downloads)
+-   Download and install a suitable ARM gcc tool chain:
+    [GNU Arm Embedded Toolchain 9-2019-q4-major](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
 
 -   Install some additional tools (likely already present for CHIP developers):
 
-    -   Linux: `sudo apt-get install git libwebkitgtk-1.0-0 ninja-build`
+    -   Linux: `sudo apt-get install git ninja-build`
 
     -   Mac OS X: `brew install ninja`
 
 -   Supported hardware:
+
+    -   > For the latest supported hardware please refer to the
+        > [Hardware Requirements](https://github.com/SiliconLabs/matter/blob/latest/docs/silabs/general/HARDWARE_REQUIREMENTS.md)
+        > in the Silicon Labs Matter Github Repo
 
     MG12 boards:
 
@@ -85,28 +101,53 @@ Silicon Labs platform.
     -   BRD4187A / SLWSTK6006A / Wireless Starter Kit / 2.4GHz@20dBm
     -   BRD4187C / SLWSTK6006A / Wireless Starter Kit / 2.4GHz@20dBm
 
-*   Build the example application for your specific board:
+    MG12 boards:
 
-          cd ~/matter
+    -   BRD4161A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@19dBm
+    -   BRD4162A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@10dBm
+    -   BRD4163A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@10dBm,
+        868MHz@19dBm
+    -   BRD4164A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@19dBm
+    -   BRD4166A / SLTB004A / Thunderboard Sense 2 / 2.4GHz@10dBm
+    -   BRD4170A / SLWSTK6000B / Multiband Wireless Starter Kit / 2.4GHz@19dBm,
+        915MHz@19dBm
+    -   BRD4304A / SLWSTK6000B / MGM12P Module / 2.4GHz@19dBm
+
+    MG21 boards: Currently not supported due to RAM limitation.
+
+    -   BRD4180A / SLWSTK6006A / Wireless Starter Kit / 2.4GHz@20dBm
+
+    MG24 boards :
+
+    -   BRD2601B / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@10dBm
+    -   BRD2703A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@10dBm
+    -   BRD4186A / SLWSTK6006A / Wireless Starter Kit / 2.4GHz@10dBm
+    -   BRD4186C / SLWSTK6006A / Wireless Starter Kit / 2.4GHz@10dBm
+    -   BRD4187A / SLWSTK6006A / Wireless Starter Kit / 2.4GHz@20dBm
+    -   BRD4187C / SLWSTK6006A / Wireless Starter Kit / 2.4GHz@20dBm
+
+*   Build the example application:
+
+          cd ~/connectedhomeip
           ./scripts/examples/gn_efr32_example.sh ./examples/lighting-app/efr32/ ./out/lighting-app BRD4161A
 
 -   To delete generated executable, libraries and object files use:
 
-          $ cd ~/matter
+          $ cd ~/connectedhomeip
           $ rm -rf ./out/
 
     OR use GN/Ninja directly
 
-          $ cd ~/matter/examples/lighting-app/efr32
+          $ cd ~/connectedhomeip/examples/lighting-app/efr32
           $ git submodule update --init
-          $ source third_party/matter/scripts/activate.sh
+          $ source third_party/connectedhomeip/scripts/activate.sh
           $ export EFR32_BOARD=BRD4161A
           $ gn gen out/debug
           $ ninja -C out/debug
 
 -   To delete generated executable, libraries and object files use:
 
-          $ cd ~/matter/examples/lighting-app/efr32
+          $ cd ~/connectedhomeip/examples/lighting-app/efr32
           $ rm -rf out/
 
 *   Build the example as Sleepy End Device (SED)
@@ -115,7 +156,7 @@ Silicon Labs platform.
 
     or use gn as previously mentioned but adding the following arguments:
 
-          $ gn gen out/debug '--args=efr32_board="BRD4161A" enable_sleepy_device=true chip_openthread_ftd=false'
+          $ gn gen out/debug '--args=silabs_board="BRD4161A" enable_sleepy_device=true chip_openthread_ftd=false'
 
 *   Build the example with pigweed RPC
 
@@ -123,9 +164,9 @@ Silicon Labs platform.
 
     or use GN/Ninja Directly
 
-          $ cd ~/matter/examples/lighting-app/efr32
+          $ cd ~/connectedhomeip/examples/lighting-app/efr32
           $ git submodule update --init
-          $ source third_party/matter/scripts/activate.sh
+          $ source third_party/connectedhomeip/scripts/activate.sh
           $ export EFR32_BOARD=BRD4161A
           $ gn gen out/debug --args='import("//with_pw_rpc.gni")'
           $ ninja -C out/debug
@@ -143,7 +184,7 @@ arguments
 
 -   On the command line:
 
-          $ cd ~/matter/examples/lighting-app/efr32
+          $ cd ~/connectedhomeip/examples/lighting-app/efr32
           $ python3 out/debug/chip-efr32-lighting-example.flash.py
 
 -   Or with the Ozone debugger, just load the .out file.
@@ -205,14 +246,14 @@ combination with JLinkRTTClient as follows:
 -   It is assumed here that you already have an OpenThread border router
     configured and running. If not see the following guide
     [Openthread_border_router](https://github.com/project-chip/connectedhomeip/blob/master/docs/guides/openthread_border_router_pi.md)
-    for more information on how to set up a border router on a Raspberry Pi.
+    for more information on how to setup a border router on a raspberryPi.
 
-    Note that the RCP code is available directly through
+    Take note that the RCP code is available directly through
     [Simplicity Studio 5](https://www.silabs.com/products/development-tools/software/simplicity-studio/simplicity-studio-5)
     under File->New->Project Wizard->Examples->Thread : ot-rcp
 
 -   User interface : **LCD** The LCD on Silabs WSTK shows a QR Code. This QR
-    Code is scanned by the CHIP Tool app for the Rendez-vous procedure over
+    Code is be scanned by the CHIP Tool app For the Rendez-vous procedure over
     BLE
 
         * On devices that do not have or support the LCD Display like the BRD4166A Thunderboard Sense 2,
@@ -250,7 +291,7 @@ combination with JLinkRTTClient as follows:
             for 30 seconds. The device will then switch to a slower interval advertisement.
             After 15 minutes, the advertisement stops.
 
-        -   _Press and hold for 6 s_ : Initiates the factory reset of the device.
+        -   _Pressed and hold for 6 s_ : Initiates the factory reset of the device.
             Releasing the button within the 6-second window cancels the factory reset
             procedure. **LEDs** blink in unison when the factory reset procedure is
             initiated.
