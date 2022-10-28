@@ -97,7 +97,13 @@ function matterToUclBitmapElem(name) {
     default: return name
   }
 }
-
+function matterToUnifyEnumNameElem(name) {
+  switch (name) {
+    case "Pir": return "PIR"
+    case "PirAndUltrasonic": return "PIRAndUltrasonic"
+    default: return name
+  }
+}
 
 exports.matterClusterConversion = matterClusterConversion
 exports.supportedCluster = supportedCluster
@@ -106,3 +112,4 @@ exports.supportedStruct = supportedStruct
 exports.overrideEnumType = overrideEnumType
 exports.overrideBitmapType = overrideBitmapType
 exports.matterToUclBitmapElem = matterToUclBitmapElem
+exports.matterToUnifyEnumNameElem = matterToUnifyEnumNameElem

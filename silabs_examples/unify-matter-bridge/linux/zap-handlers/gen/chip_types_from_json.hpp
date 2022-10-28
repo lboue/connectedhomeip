@@ -3637,8 +3637,8 @@ inline std::optional<ZclEnumOccupancySensorType> from_json(const nlohmann::json 
     const std::map<std::string, ZclEnumOccupancySensorType> table = {
         { "PIR", ZCL_OCCUPANCY_SENSOR_TYPE_PIR },
         { "Ultrasonic", ZCL_OCCUPANCY_SENSOR_TYPE_ULTRASONIC },
-        { "pirAndUltrasonic", ZCL_OCCUPANCY_SENSOR_TYPE_PIR_AND_ULTRASONIC },
-        { "physicalContact", ZCL_OCCUPANCY_SENSOR_TYPE_PHYSICAL_CONTACT },
+        { "PIRAndUltrasonic", ZCL_OCCUPANCY_SENSOR_TYPE_PIR_AND_ULTRASONIC },
+        { "PhysicalContact", ZCL_OCCUPANCY_SENSOR_TYPE_PHYSICAL_CONTACT },
     };
 
     auto i = table.find(value);
