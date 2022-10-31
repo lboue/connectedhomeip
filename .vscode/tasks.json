@@ -66,19 +66,44 @@
             "problemMatcher": {
                 "base": "$gcc"
             }
+        },
+        {
+            "label": "Copy Sample Application",
+            "type": "shell",
+            "linux": {
+                "command": "./scripts/sl_new_app.sh"
+            },
+            "osx": {
+                "command": "./scripts/sl_new_app.sh"
+            },
+            "args": [
+                "-s",
+                "examples/${input:efr32Examples}",
+                "-b",
+                "${input:efr32Boards}",
+                "-d",
+                "${input:dest}",
+            ],
+            "group": "build",
+            "isBackground": false,
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
         }
     ],
     "inputs": [
         {
             "type": "pickString",
             "id": "efr32Examples",
-            "description": "What efr32 example do you want to build?",
+            "description": "What efr32 example do you want to copy or build?",
             "options": [
                 "lock-app",
                 "lighting-app",
                 "window-app",
                 "light-switch-app",
-                "ota-requestor-app",
+                "thermostat",
                 "shell"
             ],
             "default": "lighting-app"
@@ -93,18 +118,30 @@
         {
             "type": "pickString",
             "id": "efr32Boards",
-            "description": "What efr32 example do you want to build?",
+            "description": "What efr32 board do you want to use?",
             "options": [
+                "BRD2601B",
+                "BRD2703A",
                 "BRD4161A",
+                "BRD4162A",
+                "BRD4163A",
                 "BRD4164A",
                 "BRD4166A",
                 "BRD4170A",
-                "BRD4170A",
                 "BRD4304A",
-                "BRD4186A",
-                "BRD4187A"
+                "BRD4316A",
+                "BRD4317A",
+                "BRD4319A",
+                "BRD4186C",
+                "BRD4187C"
             ],
             "default": "BRD4164A"
+        },
+        {
+            "type": "promptString",
+            "id": "dest",
+            "description": "Please provide a new directory name for the copied application.",
+            "default": ""
         }
     ]
 }
