@@ -23,11 +23,26 @@
 namespace chip {
 namespace Dnssd {
 
-class ResolverDelegateProxy : public ReferenceCounted<ResolverDelegateProxy>, public CommissioningResolveDelegate
-
+class ResolverDelegateProxy : public ReferenceCounted<ResolverDelegateProxy>,
+                              public CommissioningResolveDelegate,
+                              public OperationalBrowseDeleagete
 {
 public:
     void SetCommissioningDelegate(CommissioningResolveDelegate * delegate) { mCommissioningDelegate = delegate; }
+    void SetOperationalBrowseDelegate(OperationalBrowseDeleagete * delegate) { mOperationalBrowseDelegate = delegate; }
+
+    // Opeartional Discover Delegate
+    void OnOperationalNodeDiscovered(const OperationalNodeData & nodeData) override
+    {
+        if (mOperationalBrowseDelegate != nullptr)
+        {
+            mOperationalBrowseDelegate->OnOperationalNodeDiscovered(nodeData);
+        }
+        else
+        {
+            ChipLogError(Discovery, "Missing commissioning delegate. Data discarded.");
+        }
+    }
 
     // CommissioningResolveDelegate
     void OnNodeDiscovered(const DiscoveredNodeData & nodeData) override
@@ -43,7 +58,8 @@ public:
     }
 
 private:
-    CommissioningResolveDelegate * mCommissioningDelegate = nullptr;
+    CommissioningResolveDelegate * mCommissioningDelegate   = nullptr;
+    OperationalBrowseDeleagete * mOperationalBrowseDelegate = nullptr;
 };
 
 class ResolverProxy : public Resolver
@@ -74,12 +90,33 @@ public:
 
     bool IsInitialized() override { return Resolver::Instance().IsInitialized(); }
 
+    /**
+     * If nullptr is passed, the previously registered delegate is unregistered.
+     */
     void SetOperationalDelegate(OperationalResolveDelegate * delegate) override
     {
         /// Unfortunately cannot remove this method since it is in a Resolver interface.
         ChipLogError(Discovery, "!!! Operational proxy does NOT support operational discovery");
         ChipLogError(Discovery, "!!! Please use AddressResolver or DNSSD Resolver directly");
         chipDie(); // force detection of invalid usages.
+    }
+    /**
+     * If nullptr is passed, the previously registered delegate is unregistered.
+     */
+    void SetOperationalBrowseDelegate(OperationalBrowseDeleagete * delegate) override
+    {
+        if (mDelegate != nullptr)
+        {
+            mDelegate->SetOperationalBrowseDelegate(delegate);
+        }
+        else
+        {
+            if (delegate != nullptr)
+            {
+                ChipLogProgress(Discovery, "Delaying proxy of operational discovery: missing delegate");
+            }
+            mPreInitOperationalBrowseDelegate = delegate;
+        }
     }
 
     void SetCommissioningDelegate(CommissioningResolveDelegate * delegate) override
@@ -108,6 +145,7 @@ public:
 
     CHIP_ERROR DiscoverCommissionableNodes(DiscoveryFilter filter = DiscoveryFilter()) override;
     CHIP_ERROR DiscoverCommissioners(DiscoveryFilter filter = DiscoveryFilter()) override;
+    CHIP_ERROR DiscoverOperational(DiscoveryFilter filter = DiscoveryFilter()) override;
     CHIP_ERROR StopDiscovery() override;
     CHIP_ERROR ReconfirmRecord(const char * hostname, Inet::IPAddress address, Inet::InterfaceId interfaceId) override;
 
@@ -119,6 +157,7 @@ public:
 private:
     ResolverDelegateProxy * mDelegate                            = nullptr;
     CommissioningResolveDelegate * mPreInitCommissioningDelegate = nullptr;
+    OperationalBrowseDeleagete * mPreInitOperationalBrowseDelegate = nullptr;
 
     // While discovery (commissionable or commissioner) is ongoing,
     // mDiscoveryContext may have a value to allow StopDiscovery to work.
