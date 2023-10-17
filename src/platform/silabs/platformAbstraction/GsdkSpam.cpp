@@ -60,6 +60,11 @@ extern "C" {
 namespace chip {
 namespace DeviceLayer {
 namespace Silabs {
+namespace {
+
+    sl_button_state_t sButtonStates[SL_SIMPLE_BUTTON_COUNT] = { 0 };
+
+}
 
 SilabsPlatform SilabsPlatform::sSilabsPlatformAbstractionManager;
 
@@ -144,13 +149,20 @@ void sl_button_on_change(const sl_button_t * handle)
     {
         if (SL_SIMPLE_BUTTON_INSTANCE(i) == handle)
         {
-            Silabs::GetPlatform().mButtonCallback(i, sl_button_get_state(handle));
+            sl_button_state_t state = sl_button_get_state(handle);
+            sButtonStates[i] = state;
+            Silabs::GetPlatform().mButtonCallback(i, state);
             break;
         }
     }
 }
 }
 #endif
+
+uint8_t SilabsPlatform::GetButtonState(uint8_t button)
+{
+    return (button < SL_SIMPLE_BUTTON_COUNT) ? sButtonStates[button] : 0;
+}
 
 } // namespace Silabs
 } // namespace DeviceLayer
