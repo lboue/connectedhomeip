@@ -13598,7 +13598,7 @@
               "code": 28,
               "mfgCode": null,
               "side": "server",
-              "type": "enum8",
+              "type": "ThermostatSystemModeEnum",
               "included": 1,
               "storageOption": "RAM",
               "singleton": 0,

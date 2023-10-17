@@ -951,18 +951,18 @@ inline std::optional<Thermostat::ThermostatRunningMode> from_json(const nlohmann
     }
 }
 template <>
-inline std::optional<Thermostat::ThermostatSystemMode> from_json(const nlohmann::json& value)
+inline std::optional<Thermostat::ThermostatSystemModeEnum> from_json(const nlohmann::json& value)
 {
-    const std::map<std::string, Thermostat::ThermostatSystemMode> table = {
-        { "Off", Thermostat::ThermostatSystemMode::kOff },
-        { "Auto", Thermostat::ThermostatSystemMode::kAuto },
-        { "Cool", Thermostat::ThermostatSystemMode::kCool },
-        { "Heat", Thermostat::ThermostatSystemMode::kHeat },
-        { "EmergencyHeating", Thermostat::ThermostatSystemMode::kEmergencyHeat },
-        { "Precooling", Thermostat::ThermostatSystemMode::kPrecooling },
-        { "FanOnly", Thermostat::ThermostatSystemMode::kFanOnly },
-        { "Dry", Thermostat::ThermostatSystemMode::kDry },
-        { "Sleep", Thermostat::ThermostatSystemMode::kSleep },
+    const std::map<std::string, Thermostat::ThermostatSystemModeEnum> table = {
+        { "Off", Thermostat::ThermostatSystemModeEnum::kOff },
+        { "Auto", Thermostat::ThermostatSystemModeEnum::kAuto },
+        { "Cool", Thermostat::ThermostatSystemModeEnum::kCool },
+        { "Heat", Thermostat::ThermostatSystemModeEnum::kHeat },
+        { "EmergencyHeat", Thermostat::ThermostatSystemModeEnum::kEmergencyHeat },
+        { "Precooling", Thermostat::ThermostatSystemModeEnum::kPrecooling },
+        { "FanOnly", Thermostat::ThermostatSystemModeEnum::kFanOnly },
+        { "Dry", Thermostat::ThermostatSystemModeEnum::kDry },
+        { "Sleep", Thermostat::ThermostatSystemModeEnum::kSleep },
     };
 
     auto i = table.find(value);

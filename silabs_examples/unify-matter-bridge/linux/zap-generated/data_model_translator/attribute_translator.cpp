@@ -2626,7 +2626,7 @@ ThermostatAttributeAccess::Read(const ConcreteReadAttributePath& aPath, Attribut
             }
             break;
         }
-        case MN::SystemMode::Id: { // type is enum8
+        case MN::SystemMode::Id: { // type is ThermostatSystemModeEnum
             MN::SystemMode::TypeInfo::Type value;
             if (attribute_state_cache::get_instance().get(atr_path, value)) {
                 return aEncoder.Encode(value);
@@ -3379,7 +3379,7 @@ void ThermostatAttributeAccess::reported_updated(const bridged_endpoint* ep, con
         }
         break;
     }
-        // type is enum8
+        // type is ThermostatSystemModeEnum
     case MN::SystemMode::Id: {
         using T = MN::SystemMode::TypeInfo::Type;
         std::optional<T> value = from_json<T>(unify_value);

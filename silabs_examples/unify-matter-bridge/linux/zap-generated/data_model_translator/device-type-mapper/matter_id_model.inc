@@ -555,6 +555,7 @@ namespace app {
                     { "ActiveRadioFaults", ActiveRadioFaults::Id },
                     { "ActiveNetworkFaults", ActiveNetworkFaults::Id },
                     { "TestEventTriggersEnabled", TestEventTriggersEnabled::Id },
+                    { "AverageWearCount", AverageWearCount::Id },
                     { "GeneratedCommandList", GeneratedCommandList::Id },
                     { "AcceptedCommandList", AcceptedCommandList::Id },
                     { "EventList", EventList::Id },
@@ -2274,7 +2275,15 @@ namespace app {
         } // namespace FaultInjection
         namespace SampleMei {
             namespace Attributes {
-                static const std::unordered_map<std::string, chip::AttributeId> matter_attribute_id_cluster_map {};
+                static const std::unordered_map<std::string, chip::AttributeId> matter_attribute_id_cluster_map {
+                    { "FlipFlop", FlipFlop::Id },
+                    { "GeneratedCommandList", GeneratedCommandList::Id },
+                    { "AcceptedCommandList", AcceptedCommandList::Id },
+                    { "EventList", EventList::Id },
+                    { "AttributeList", AttributeList::Id },
+                    { "FeatureMap", FeatureMap::Id },
+                    { "ClusterRevision", ClusterRevision::Id }
+                };
             } // namespace Attributes
         } // namespace SampleMei
 
@@ -3205,7 +3214,11 @@ namespace app {
         } // namespace FaultInjection
         namespace SampleMei {
             namespace Commands {
-                static const std::unordered_map<std::string, chip::CommandId> matter_command_id_cluster_map {};
+                static const std::unordered_map<std::string, chip::CommandId> matter_command_id_cluster_map {
+                    { "Ping", Ping::Id },
+                    { "AddArgumentsResponse", AddArgumentsResponse::Id },
+                    { "AddArguments", AddArguments::Id }
+                };
             } // namespace Commands
         } // namespace SampleMei
 

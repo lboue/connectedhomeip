@@ -15149,17 +15149,16 @@ typedef NS_ENUM(uint8_t, MTRThermostatRunningMode) {
 } MTR_AVAILABLE(ios(16.1), macos(13.0), watchos(9.1), tvos(16.1));
 
 typedef NS_ENUM(uint8_t, MTRThermostatSystemMode) {
-    MTRThermostatSystemModeOff MTR_AVAILABLE(ios(16.1), macos(13.0), watchos(9.1), tvos(16.1)) = 0x00,
-    MTRThermostatSystemModeAuto MTR_AVAILABLE(ios(16.1), macos(13.0), watchos(9.1), tvos(16.1)) = 0x01,
-    MTRThermostatSystemModeCool MTR_AVAILABLE(ios(16.1), macos(13.0), watchos(9.1), tvos(16.1)) = 0x03,
-    MTRThermostatSystemModeHeat MTR_AVAILABLE(ios(16.1), macos(13.0), watchos(9.1), tvos(16.1)) = 0x04,
-    MTRThermostatSystemModeEmergencyHeat MTR_AVAILABLE(ios(16.4), macos(13.3), watchos(9.4), tvos(16.4)) = 0x05,
-    MTRThermostatSystemModeEmergencyHeating MTR_DEPRECATED("Please use MTRThermostatSystemModeEmergencyHeat", ios(16.1, 16.4), macos(13.0, 13.3), watchos(9.1, 9.4), tvos(16.1, 16.4)) = 0x05,
-    MTRThermostatSystemModePrecooling MTR_AVAILABLE(ios(16.1), macos(13.0), watchos(9.1), tvos(16.1)) = 0x06,
-    MTRThermostatSystemModeFanOnly MTR_AVAILABLE(ios(16.1), macos(13.0), watchos(9.1), tvos(16.1)) = 0x07,
-    MTRThermostatSystemModeDry MTR_AVAILABLE(ios(16.4), macos(13.3), watchos(9.4), tvos(16.4)) = 0x08,
-    MTRThermostatSystemModeSleep MTR_AVAILABLE(ios(16.4), macos(13.3), watchos(9.4), tvos(16.4)) = 0x09,
-} MTR_AVAILABLE(ios(16.1), macos(13.0), watchos(9.1), tvos(16.1));
+    MTRThermostatSystemModeOff MTR_PROVISIONALLY_AVAILABLE = 0x00,
+    MTRThermostatSystemModeAuto MTR_PROVISIONALLY_AVAILABLE = 0x01,
+    MTRThermostatSystemModeCool MTR_PROVISIONALLY_AVAILABLE = 0x03,
+    MTRThermostatSystemModeHeat MTR_PROVISIONALLY_AVAILABLE = 0x04,
+    MTRThermostatSystemModeEmergencyHeat MTR_PROVISIONALLY_AVAILABLE = 0x05,
+    MTRThermostatSystemModePrecooling MTR_PROVISIONALLY_AVAILABLE = 0x06,
+    MTRThermostatSystemModeFanOnly MTR_PROVISIONALLY_AVAILABLE = 0x07,
+    MTRThermostatSystemModeDry MTR_PROVISIONALLY_AVAILABLE = 0x08,
+    MTRThermostatSystemModeSleep MTR_PROVISIONALLY_AVAILABLE = 0x09,
+} MTR_PROVISIONALLY_AVAILABLE;
 
 typedef NS_OPTIONS(uint8_t, MTRThermostatDayOfWeek) {
     MTRThermostatDayOfWeekSunday MTR_AVAILABLE(ios(16.1), macos(13.0), watchos(9.1), tvos(16.1)) = 0x1,

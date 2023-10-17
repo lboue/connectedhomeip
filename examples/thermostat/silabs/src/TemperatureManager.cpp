@@ -47,7 +47,7 @@ CHIP_ERROR TemperatureManager::Init()
 {
     app::DataModel::Nullable<int16_t> temp;
     int16_t heatingSetpoint, coolingSetpoint;
-    uint8_t systemMode;
+    chip::app::Clusters::Thermostat::ThermostatSystemModeEnum systemMode;
 
     PlatformMgr().LockChipStack();
     ThermAttr::LocalTemperature::Get(kThermostatEndpoint, temp);
@@ -59,7 +59,7 @@ CHIP_ERROR TemperatureManager::Init()
     mCurrentTempCelsius     = ConvertToPrintableTemp((temp.IsNull()) ? static_cast<int16_t>(0.0) : temp.Value());
     mHeatingCelsiusSetPoint = ConvertToPrintableTemp(coolingSetpoint);
     mCoolingCelsiusSetPoint = ConvertToPrintableTemp(heatingSetpoint);
-    mThermMode              = systemMode;
+    mThermMode              = static_cast<uint8_t>(systemMode);
 
     AppTask::GetAppTask().UpdateThermoStatUI();
 

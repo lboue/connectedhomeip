@@ -1071,6 +1071,7 @@ exports.model = {
       6 : "ActiveRadioFaults",
       7 : "ActiveNetworkFaults",
       8 : "TestEventTriggersEnabled",
+      9 : "AverageWearCount",
       65528 : "GeneratedCommandList",
       65529 : "AcceptedCommandList",
       65530 : "EventList",
@@ -4275,6 +4276,39 @@ exports.model = {
       65533 : "ClusterRevision",
     },
   },
+  4294048800 : {
+    name : "SampleMei",
+    commands : {
+      0 : {
+        name : "Ping",
+        arguments : [
+
+        ],
+      },
+      1 : {
+        name : "AddArgumentsResponse",
+        arguments : [
+          "ReturnValue",
+        ],
+      },
+      2 : {
+        name : "AddArguments",
+        arguments : [
+          "Arg1",
+          "Arg2",
+        ],
+      },
+    },
+    attributes : {
+      0 : "FlipFlop",
+      65528 : "GeneratedCommandList",
+      65529 : "AcceptedCommandList",
+      65530 : "EventList",
+      65531 : "AttributeList",
+      65532 : "FeatureMap",
+      65533 : "ClusterRevision",
+    },
+  },
 
   enums : {
     "AccessControlEntryAuthModeEnum" : [
@@ -4336,6 +4370,11 @@ exports.model = {
       "Warning",
       "Critical",
     ], //
+    "AnnouncementReasonEnum" : [
+      "SimpleAnnouncement",
+      "UpdateAvailable",
+      "UrgentUpdateAvailable",
+    ], //
     "ApplicationLauncherStatusEnum" : [
       "Success",
       "AppNotAvailable",
@@ -4346,6 +4385,11 @@ exports.model = {
       "ActiveVisibleFocus",
       "ActiveHidden",
       "ActiveVisibleNotFocus",
+    ], //
+    "ApplyUpdateActionEnum" : [
+      "Proceed",
+      "AwaitNextAction",
+      "Discontinue",
     ], //
     "AssociationFailureCauseEnum" : [
       "Unknown",
@@ -4636,6 +4680,13 @@ exports.model = {
       "Warning",
       "Critical",
     ], //
+    "ChangeReasonEnum" : [
+      "Unknown",
+      "Success",
+      "Failure",
+      "TimeOut",
+      "DelayByProvider",
+    ], //
     "ChangeTypeEnum" : [
       "Changed",
       "Added",
@@ -4769,6 +4820,11 @@ exports.model = {
     "DegradationDirectionEnum" : [
       "Up",
       "Down",
+    ], //
+    "DelayedAllOffEffectVariantEnum" : [
+      "DelayedOffFastFade",
+      "NoFade",
+      "DelayedOffSlowFade",
     ], //
     "DlLockState" : [
       "NotFullyLocked",
@@ -4905,6 +4961,19 @@ exports.model = {
       "DoorForcedOpen",
       "DoorUnspecifiedError",
       "DoorAjar",
+    ], //
+    "DownloadProtocolEnum" : [
+      "BDXSynchronous",
+      "BDXAsynchronous",
+      "Https",
+      "VendorSpecific",
+    ], //
+    "DyingLightEffectVariantEnum" : [
+      "DyingLightFadeOff",
+    ], //
+    "EffectIdentifierEnum" : [
+      "DelayedAllOff",
+      "DyingLight",
     ], //
     "EffectIdentifierEnum" : [
       "Blink",
@@ -5163,9 +5232,8 @@ exports.model = {
     ], //
     "ModeTag" : [
       "Normal",
-      "Delicate",
       "Heavy",
-      "Whites",
+      "Light",
     ], //
     "ModeTag" : [
       "RapidCool",
@@ -5173,17 +5241,18 @@ exports.model = {
     ], //
     "ModeTag" : [
       "Normal",
+      "Delicate",
       "Heavy",
-      "Light",
+      "Whites",
+    ], //
+    "ModeTag" : [
+      "Idle",
+      "Cleaning",
     ], //
     "ModeTag" : [
       "DeepClean",
       "Vacuum",
       "Mop",
-    ], //
-    "ModeTag" : [
-      "Idle",
-      "Cleaning",
     ], //
     "MoveMode" : [
       "Up",
@@ -5238,68 +5307,11 @@ exports.model = {
       "Extra",
       "Max",
     ], //
-    "OTAAnnouncementReason" : [
-      "SimpleAnnouncement",
-      "UpdateAvailable",
-      "UrgentUpdateAvailable",
-    ], //
-    "OTAApplyUpdateAction" : [
-      "Proceed",
-      "AwaitNextAction",
-      "Discontinue",
-    ], //
-    "OTAChangeReasonEnum" : [
-      "Unknown",
-      "Success",
-      "Failure",
-      "TimeOut",
-      "DelayByProvider",
-    ], //
-    "OTADownloadProtocol" : [
-      "BDXSynchronous",
-      "BDXAsynchronous",
-      "Https",
-      "VendorSpecific",
-    ], //
-    "OTAQueryStatus" : [
-      "UpdateAvailable",
-      "Busy",
-      "NotAvailable",
-      "DownloadProtocolNotSupported",
-    ], //
-    "OTAUpdateStateEnum" : [
-      "Unknown",
-      "Idle",
-      "Querying",
-      "DelayedOnQuery",
-      "Downloading",
-      "Applying",
-      "DelayedOnApply",
-      "RollingBack",
-      "DelayedOnUserConsent",
-    ], //
     "OccupancySensorTypeEnum" : [
       "Pir",
       "Ultrasonic",
       "PIRAndUltrasonic",
       "PhysicalContact",
-    ], //
-    "OnOffDelayedAllOffEffectVariant" : [
-      "FadeToOffIn0p8Seconds",
-      "NoFade",
-      "50PercentDimDownIn0p8SecondsThenFadeToOffIn12Seconds",
-    ], //
-    "OnOffDyingLightEffectVariant" : [
-      "20PercenterDimUpIn0p5SecondsThenFadeToOffIn1Second",
-    ], //
-    "OnOffEffectIdentifier" : [
-      "DelayedAllOff",
-      "DyingLight",
-    ], //
-    "OnOffStartUpOnOff" : [
-      "Off",
-      "On",
-      "TogglePreviousOnOff",
     ], //
     "OperatingModeEnum" : [
       "Normal",
@@ -5480,6 +5492,11 @@ exports.model = {
       "Friday",
       "Saturday",
     ], //
+    "StartUpOnOffEnum" : [
+      "Off",
+      "On",
+      "Toggle",
+    ], //
     "StatusCode" : [
       "CleaningInProgress",
     ], //
@@ -5507,6 +5524,12 @@ exports.model = {
       "NoLogs",
       "Busy",
       "Denied",
+    ], //
+    "StatusEnum" : [
+      "UpdateAvailable",
+      "Busy",
+      "NotAvailable",
+      "DownloadProtocolNotSupported",
     ], //
     "StepDirectionEnum" : [
       "Increase",
@@ -5547,7 +5570,7 @@ exports.model = {
       "Cool",
       "Heat",
     ], //
-    "ThermostatSystemMode" : [
+    "ThermostatSystemModeEnum" : [
       "Off",
       "Auto",
       "Cool",
@@ -5598,6 +5621,17 @@ exports.model = {
       "TiltBlindLiftAndTilt",
       "ProjectorScreen",
       "Unknown",
+    ], //
+    "UpdateStateEnum" : [
+      "Unknown",
+      "Idle",
+      "Querying",
+      "DelayedOnQuery",
+      "Downloading",
+      "Applying",
+      "DelayedOnApply",
+      "RollingBack",
+      "DelayedOnUserConsent",
     ], //
     "UserStatusEnum" : [
       "Available",
@@ -5655,6 +5689,10 @@ exports.model = {
     },
     "AlarmMap" : {
       1 : "DoorOpen",
+    },
+    "BallastStatusBitmap" : {
+      1 : "BallastNonOperational",
+      2 : "LampFailure",
     },
     "BarrierControlCapabilities" : {
       1 : "PartialBarrier",
@@ -5859,6 +5897,9 @@ exports.model = {
       1 : "TemperatureUnit",
     },
     "Feature" : {
+      1 : "CalendarFormat",
+    },
+    "Feature" : {
       1 : "Spin",
       2 : "Rinse",
     },
@@ -5866,20 +5907,17 @@ exports.model = {
       1 : "TagList",
     },
     "Feature" : {
-      1 : "TemperatureNumber",
-      2 : "TemperatureLevel",
-      4 : "TemperatureStep",
-    },
-    "Feature" : {
       1 : "NavigationKeyCodes",
       2 : "LocationKeys",
       4 : "NumberKeys",
     },
     "Feature" : {
-      1 : "WaterMarks",
+      1 : "TemperatureNumber",
+      2 : "TemperatureLevel",
+      4 : "TemperatureStep",
     },
     "Feature" : {
-      1 : "NameUpdates",
+      1 : "WaterMarks",
     },
     "Feature" : {
       1 : "OnOff",
@@ -5888,18 +5926,24 @@ exports.model = {
       1 : "NameUpdates",
     },
     "Feature" : {
+      1 : "Reset",
+    },
+    "Feature" : {
       1 : "PacketCounts",
       2 : "ErrorCounts",
+    },
+    "Feature" : {
+      1 : "NameUpdates",
     },
     "Feature" : {
       1 : "Extended",
     },
     "Feature" : {
-      1 : "ApplicationPlatform",
-    },
-    "Feature" : {
       1 : "ChannelList",
       2 : "LineupInfo",
+    },
+    "Feature" : {
+      1 : "ApplicationPlatform",
     },
     "Feature" : {
       1 : "MultiSpeed",
@@ -5910,13 +5954,13 @@ exports.model = {
       32 : "AirflowDirection",
     },
     "Feature" : {
-      1 : "PacketCounts",
-      2 : "ErrorCounts",
-    },
-    "Feature" : {
       1 : "Condition",
       2 : "Warning",
-      3 : "ReplacementProductList",
+      4 : "ReplacementProductList",
+    },
+    "Feature" : {
+      1 : "PacketCounts",
+      2 : "ErrorCounts",
     },
     "Feature" : {
       1 : "ContentSearch",
@@ -5924,7 +5968,11 @@ exports.model = {
     },
     "Feature" : {
       1 : "Lighting",
-      2 : "DeadFront",
+      2 : "DeadFrontBehavior",
+    },
+    "Feature" : {
+      1 : "SmokeAlarm",
+      2 : "CoAlarm",
     },
     "Feature" : {
       1 : "LatchingSwitch",
@@ -5932,10 +5980,6 @@ exports.model = {
       4 : "MomentarySwitchRelease",
       8 : "MomentarySwitchLongPress",
       16 : "MomentarySwitchMultiPress",
-    },
-    "Feature" : {
-      1 : "SmokeAlarm",
-      2 : "CoAlarm",
     },
     "Feature" : {
       1 : "AdvancedSeek",
@@ -6039,6 +6083,9 @@ exports.model = {
       2048 : "HolidaySchedules",
       4096 : "Unbolt",
     },
+    "LampAlarmModeBitmap" : {
+      1 : "LampBurnHours",
+    },
     "LevelControlOptions" : {
       1 : "ExecuteIfOff",
       2 : "CoupleColorTempToLevel",
@@ -6064,7 +6111,7 @@ exports.model = {
       2 : "Ultrasonic",
       4 : "PhysicalContact",
     },
-    "OnOffControl" : {
+    "OnOffControlBitmap" : {
       1 : "AcceptOnlyWhenOn",
     },
     "OperationalStatus" : {

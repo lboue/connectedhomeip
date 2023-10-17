@@ -1034,27 +1034,27 @@ nlohmann::json inline to_json(const chip::app::Clusters::Thermostat::ThermostatR
     }
 }
 template <>
-nlohmann::json inline to_json(const chip::app::Clusters::Thermostat::ThermostatSystemMode& value)
+nlohmann::json inline to_json(const chip::app::Clusters::Thermostat::ThermostatSystemModeEnum& value)
 {
     using namespace chip::app::Clusters::Thermostat;
     switch (value) {
-    case ThermostatSystemMode::kOff:
+    case ThermostatSystemModeEnum::kOff:
         return "Off";
-    case ThermostatSystemMode::kAuto:
+    case ThermostatSystemModeEnum::kAuto:
         return "Auto";
-    case ThermostatSystemMode::kCool:
+    case ThermostatSystemModeEnum::kCool:
         return "Cool";
-    case ThermostatSystemMode::kHeat:
+    case ThermostatSystemModeEnum::kHeat:
         return "Heat";
-    case ThermostatSystemMode::kEmergencyHeat:
-        return "EmergencyHeating";
-    case ThermostatSystemMode::kPrecooling:
+    case ThermostatSystemModeEnum::kEmergencyHeat:
+        return "EmergencyHeat";
+    case ThermostatSystemModeEnum::kPrecooling:
         return "Precooling";
-    case ThermostatSystemMode::kFanOnly:
+    case ThermostatSystemModeEnum::kFanOnly:
         return "FanOnly";
-    case ThermostatSystemMode::kDry:
+    case ThermostatSystemModeEnum::kDry:
         return "Dry";
-    case ThermostatSystemMode::kSleep:
+    case ThermostatSystemModeEnum::kSleep:
         return "Sleep";
     default:
         return "{}";
