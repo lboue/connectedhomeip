@@ -456,10 +456,14 @@ CHIP_ERROR DefaultStorage::WriteFile(ConfigKey offset_key, ConfigKey size_key, u
     _dac_set = _dac_set || (SilabsConfig::kConfigKey_Creds_DAC_Offset == offset_key);
     if(_cd_set && _pai_set && _dac_set)
     {
+#ifdef SIWX_917
+        return CHIP_ERROR_NOT_IMPLEMENTED;
+#else
         // Erase page
         MSC_ErasePage((uint32_t *)base_addr);
         // Write to flash
         MSC_WriteWord((uint32_t *)base_addr, _credentials_page, FLASH_PAGE_SIZE);
+#endif
     }
     return CHIP_NO_ERROR;
 }
