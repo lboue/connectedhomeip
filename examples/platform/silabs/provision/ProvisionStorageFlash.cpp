@@ -178,22 +178,22 @@ public:
         return CHIP_NO_ERROR;
     }
 
-    CHIP_ERROR Set(FlashIds id, uint8_t value)
+    CHIP_ERROR Set(FlashIds id, bool value)
     {
         VerifyOrReturnError(id < kFieldCount, CHIP_ERROR_NOT_FOUND);
         FlashEntry & e = _entries[id];
         VerifyOrReturnError(e.size > 0, CHIP_ERROR_INTERNAL);
-        _page[e.offset] = value;
+        _page[e.offset] = (value ? 1 : 0);
         return Flag(id, true);
     }
 
-    CHIP_ERROR Get(FlashIds id, uint8_t & value)
+    CHIP_ERROR Get(FlashIds id, bool & value)
     {
         VerifyOrReturnError(IsSet(id), CHIP_ERROR_NOT_FOUND);
         FlashEntry & e = _entries[id];
         VerifyOrReturnError(e.size > 0, CHIP_ERROR_INTERNAL);
         uint8_t *p = _base_address + e.offset;
-        value = *p;
+        value = (*p > 0);
         return Flag(id, true);
     }
 
@@ -240,14 +240,15 @@ public:
         // Get page address
         uint32_t base_addr = (uint32_t)_base_address;
         // ReturnErrorOnFailure(Get(FlashIds::kBaseAddress, base_addr));
-
+#ifdef SIWX_917
+        return CHIP_ERROR_NOT_IMPLEMENTED;
+#else
         // Erase page
         MSC_ErasePage((uint32_t *)base_addr);
-
         // Write to flash
         MSC_WriteWord((uint32_t *)base_addr, _page, FLASH_PAGE_SIZE);
         return CHIP_NO_ERROR;
-
+#endif
     }
     FlashEntry _entries[kFieldCount];
     uint8_t _page[FLASH_PAGE_SIZE] = { 0 };
@@ -556,14 +557,14 @@ CHIP_ERROR FlashStorage::GetSetupPayload(uint8_t * value, size_t max, size_t &si
     return _flash.Get(FlashIds::kSetupPayload, value, max, size);
 }
 
-CHIP_ERROR DefaultStorage::SetProvisionRequest(bool value)
+CHIP_ERROR FlashStorage::SetProvisionRequest(bool value)
 {
-    return _flash.Set(FlashIds::kProvisionRequest, value, size);
+    return _flash.Set(FlashIds::kProvisionRequest, value);
 }
 
-CHIP_ERROR DefaultStorage::GetProvisionRequest(bool &value)
+CHIP_ERROR FlashStorage::GetProvisionRequest(bool &value)
 {
-    return _flash.Set(FlashIds::kProvisionRequest, value, size);
+    return _flash.Set(FlashIds::kProvisionRequest, value);
 }
 
 } // namespace Provision
