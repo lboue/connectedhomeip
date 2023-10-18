@@ -42,7 +42,7 @@ class Paths:
         self.config = "{}/config/latest.json".format(base)
         self.cd = "{}/cd.der".format(self.temp)
         self.csr_pem = self.temp + '/csr.pem'
-        self.gen_fw = "{}/images/{}.s37".format(base, info.family)
+        self.gen_fw = "{}/images/{}.s37".format(base, info.image)
         self.template = "{}/silabs_creds.tmpl".format(base)
         self.header = "{}/silabs_creds.h".format(self.temp)
         execute(["mkdir", "-p", self.temp ])

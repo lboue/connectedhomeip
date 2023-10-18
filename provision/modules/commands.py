@@ -47,7 +47,7 @@ class Command(object):
             rid = enc.getUint8()
             err = enc.getInt32()
         except:
-            fail("Invalid header")
+            fail("Invalid header({}): {}".format(len(resp), bytearray(resp).hex()))
         if rid != self.id:
             fail("Unexpected response {} to command {}".format(rid, self.id))
         if err:
