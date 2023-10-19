@@ -24,6 +24,7 @@ class Paths:
         self.root = base + '/..'
         self.debug = self.root + '/out/debug'
         self.temp = args.temp or (base + '/temp')
+        self.support = "{}/support".format(base)
         self.out_default = "{}/paa_cert.pem".format(base)
         self.att_certs = args.attest.paa_cert or "{}/certs.p12".format(self.temp)
         self.paa_cert_pem = args.attest.paa_cert or "{}/paa_cert.pem".format(self.temp)
@@ -279,7 +280,7 @@ def main(argv):
         exit()
 
     print("\n◆ Connecting to device")
-    conn = Connection(args, info.part)
+    conn = Connection(args, paths, info.part)
     conn.open(args.conn)
 
     # Initialize device
