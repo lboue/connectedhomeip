@@ -73,7 +73,7 @@ constexpr char kChipEventFifoPathPrefix[] = "/tmp/chip_all_clusters_fifo_";
 LowPowerManager sLowPowerManager;
 NamedPipeCommands sChipNamedPipeCommands;
 AllClustersCommandDelegate sAllClustersCommandDelegate;
-Clusters::FanControl::FanControlManager sFanControlnManager;
+Clusters::FanControl::FanControlManager FanControlManager;
 Clusters::WindowCovering::WindowCoveringManager sWindowCoveringManager;
 
 Clusters::TemperatureControl::AppSupportedTemperatureLevelsDelegate sAppSupportedTemperatureLevelsDelegate;
@@ -289,7 +289,7 @@ void emberAfLowPowerClusterInitCallback(EndpointId endpoint)
 void emberAfsFanControlClusterInitCallback(chip::EndpointId endpoint)
 {
     sFanControlManager.Init(endpoint);
-    Clusters::sFanControl::SetDefaultDelegate(endpoint, &sFanControlManager);
+    Clusters::sFanControl::SetDefaultDelegate(endpoint, &FanControlManager);
     Clusters::sFanControl::ConfigStatusUpdateFeatures(endpoint);
 }
 
