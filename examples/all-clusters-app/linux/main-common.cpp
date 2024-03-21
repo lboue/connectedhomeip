@@ -19,7 +19,7 @@
 #include "AllClustersCommandDelegate.h"
 #include "AppOptions.h"
 #include "ValveControlDelegate.h"
-#include "FanControlManager.h"
+#include "fan-control-manager.h"
 #include "WindowCoveringManager.h"
 #include "air-quality-instance.h"
 #include "device-energy-management-modes.h"
@@ -73,7 +73,7 @@ constexpr char kChipEventFifoPathPrefix[] = "/tmp/chip_all_clusters_fifo_";
 LowPowerManager sLowPowerManager;
 NamedPipeCommands sChipNamedPipeCommands;
 AllClustersCommandDelegate sAllClustersCommandDelegate;
-Clusters::FanControl::FanControlManager sFanControlngManager;
+Clusters::FanControl::FanControlManager sFanControlnManager;
 Clusters::WindowCovering::WindowCoveringManager sWindowCoveringManager;
 
 Clusters::TemperatureControl::AppSupportedTemperatureLevelsDelegate sAppSupportedTemperatureLevelsDelegate;
