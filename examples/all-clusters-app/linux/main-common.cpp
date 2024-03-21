@@ -42,6 +42,7 @@
 #include <app/CommandHandler.h>
 #include <app/clusters/diagnostic-logs-server/diagnostic-logs-server.h>
 #include <app/clusters/identify-server/identify-server.h>
+#include <app/clusters/fan-control-server/fan-control-delegate.h>
 #include <app/clusters/laundry-dryer-controls-server/laundry-dryer-controls-server.h>
 #include <app/clusters/laundry-washer-controls-server/laundry-washer-controls-server.h>
 #include <app/clusters/mode-base-server/mode-base-server.h>
