@@ -288,9 +288,7 @@ void emberAfLowPowerClusterInitCallback(EndpointId endpoint)
 
 void emberAfsFanControlClusterInitCallback(chip::EndpointId endpoint)
 {
-    sFanControlManager.Init(endpoint);
-    Clusters::sFanControl::SetDefaultDelegate(endpoint, &FanControlManager);
-    Clusters::sFanControl::ConfigStatusUpdateFeatures(endpoint);
+    Clusters::FanControl::SetDefaultDelegate(endpoint, &FanControlManager);
 }
 
 void emberAfWindowCoveringClusterInitCallback(chip::EndpointId endpoint)
