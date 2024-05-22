@@ -1,4 +1,4 @@
-# An SDK example
+# Matter SDK example
 
 The SDK provides a number of example devices and controllers that can be used to
 familiarize yourself with the SDK and the Matter ecosystem.
