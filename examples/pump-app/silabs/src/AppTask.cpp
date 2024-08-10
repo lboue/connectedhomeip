@@ -45,6 +45,7 @@
 
 #define PCC_CLUSTER_ENDPOINT 1
 #define ONOFF_CLUSTER_ENDPOINT 1
+#define TEMP_CLUSTER_ENDPOINT 1
 
 // Sparkfun only has one led
 #if !defined(BRD2704A)
@@ -244,7 +245,9 @@ void AppTask::UpdateClusterState(intptr_t context)
     // Set On/Off state
     Protocols::InteractionModel::Status status;
     bool onOffState = !PumpMgr().IsStopped();
+    int16_t temperature = 35*100;
     status          = chip::app::Clusters::OnOff::Attributes::OnOff::Set(PCC_CLUSTER_ENDPOINT, onOffState);
+                      chip::app::Clusters::TemperatureMeasurement::Attributes::MeasuredValue::Set(TEMP_CLUSTER_ENDPOINT, temperature);
     if (status != Protocols::InteractionModel::Status::Success)
     {
         ChipLogError(NotSpecified, "ERR: Updating On/Off state  %x", to_underlying(status));
