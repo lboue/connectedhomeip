@@ -138,3 +138,50 @@ Obtain tracing json file.
     $ ./{PIGWEED_REPO}/pw_trace_tokenized/py/pw_trace_tokenized/get_trace.py -s localhost:33000 \
      -o {OUTPUT_FILE} -t {ELF_FILE} {PIGWEED_REPO}/pw_trace_tokenized/pw_trace_protos/trace_rpc.proto
 ```
+
+## Trigger event using rvc-app event named pipe
+
+You can send a command to rvc-app to trigger specific event via
+rvc-app event named pipe /tmp/chip_rvc_fifo_<PID>.
+
+### Trigger RVC events
+
+1. Generate event `Charged`, when the RVC is charged.
+
+```
+$ echo '{"Name": "Charged"}' > /tmp/chip_rvc_fifo_<PID>
+```
+
+2. Generate event `Charging`, when the RVC is charging.
+
+```
+$ echo '{"Name": "Charging"}' > /tmp/chip_rvc_fifo_<PID>
+```
+
+3. Generate event `Charged`, when the RVC has low battery charge.
+
+```
+$ echo '{"Name": "LowCharge"}' > /tmp/chip_rvc_fifo_<PID>
+```
+
+4. Generate event `ChargerFound`, when the RVC charger has been found.
+
+```
+$ echo '{"Name": "ChargerFound"}' > /tmp/chip_rvc_fifo_<PID>
+```
+
+5. Generate event `ActivityComplete`, when the RVC activity is over.
+```
+$ echo '{"Name": "ActivityComplete"}' > /tmp/chip_rvc_fifo_<PID>
+```
+
+6. Generate event `Docked`, when the RVC is docked.
+
+```
+$ echo '{"Name": "Docked"}' > /tmp/chip_rvc_fifo_<PID>
+```
+
+7. Generate event `Docked`, when the RVC has reset.
+```
+$ echo '{"Name": "Reset"}' > /tmp/chip_rvc_fifo_<PID>
+```
