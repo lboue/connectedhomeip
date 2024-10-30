@@ -24,6 +24,7 @@ details.
         -   [Activating python virtual env](#activating-python-virtual-env)
         -   [Interacting with CHIP-REPL and the example app](#interacting-with-chip-repl-and-the-example-app)
         -   [Using chip-repl to Fake a charging session](#using-chip-repl-to-fake-a-charging-session)
+    -   [CHIP-Tool Interaction](#chip-tool-interaction)
 
 <hr>
 
@@ -126,12 +127,19 @@ details.
                       RX bytes:8609495 acl:14 sco:0 events:217484 errors:0
                       TX bytes:92185 acl:20 sco:0 commands:5259 errors:0
 
-        -   Run Linux Energy Management Example App
+        -   Run Linux Energy Management EVSE Example App
 
                   $ cd ~/connectedhomeip/examples/energy-management-app/linux
                   $ sudo out/debug/chip-energy-management-app --ble-device [bluetooth device number]
                   # In this example, the device we want to use is hci1
-                  $ sudo out/debug/chip-energy-management-app --ble-device 1
+                  $ sudo out/debug/chip-energy-management-app --application evse --ble-device 1
+
+        -   Run Linux Energy Management Water Heater Example App
+
+                  $ cd ~/connectedhomeip/examples/energy-management-app/linux
+                  $ sudo out/debug/chip-energy-management-app --ble-device [bluetooth device number]
+                  # In this example, the device we want to use is hci1
+                  $ sudo out/debug/chip-energy-management-app --application water-heater --ble-device 1
 
         -   Test the device using ChipDeviceController on your laptop /
             workstation etc.
@@ -552,3 +560,24 @@ When we re-read the events:
     state was `kPluggedInCharging` prior to the EV being not detected (normally
     in a graceful shutdown this would be `kPluggedInNoDemand` or
     `kPluggedInDemand`).
+
+
+## CHIP-Tool Interaction
+
+### Interacting with CHIP-Tool and the Water Heater example app
+
+Read `tank-volume` from EP2
+
+```
+chip-tool waterheatermanagement read tank-volume 1 2
+```
+
+Read `tank-percentage` from EP2
+```
+chip-tool waterheatermanagement read tank-percentage 1 2
+```
+
+Read `boost-state` from EP2
+```
+chip-tool waterheatermanagement read boost-state 1 2
+```
