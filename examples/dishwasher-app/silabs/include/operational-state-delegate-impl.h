@@ -73,11 +73,13 @@ private:
         GenericOperationalState(to_underlying(OperationalStateEnum::kPaused)),
         GenericOperationalState(to_underlying(OperationalStateEnum::kError)),
     };
+    const CharSpan OpPhaseList[3] = { "pre-soak"_span, "rinse"_span, "spin"_span };
 
     EndpointId mEndpointId;
 
     DataModel::List<const GenericOperationalState> mOperationalStateList = Span<const GenericOperationalState>(rvcOpStateList);
     const Span<const CharSpan> mOperationalPhaseList;
+    const Span<const CharSpan> mOperationalPhaseList = Span<const CharSpan>(OpPhaseList);
 };
 
 OperationalState::Instance * GetInstance();
