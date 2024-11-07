@@ -45,7 +45,7 @@ To build and run the Python CHIP controller:
     sudo apt-get update
     sudo apt-get upgrade
 
-    sudo apt-get install git gcc g++ python pkg-config libssl-dev libdbus-1-dev libglib2.0-dev libavahi-client-dev ninja-build python3-venv python3-dev python3-pip unzip libgirepository1.0-dev libcairo2-dev bluez
+    sudo apt-get install git gcc g++ python3 pkg-config libssl-dev libdbus-1-dev libglib2.0-dev libavahi-client-dev ninja-build python3-venv python3-dev python3-pip unzip libgirepository1.0-dev libcairo2-dev bluez
     ```
 
     If the Python CHIP controller is built on a Raspberry Pi, install additional
