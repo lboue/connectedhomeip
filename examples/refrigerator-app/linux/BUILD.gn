@@ -28,7 +28,9 @@ executable("chip-refrigerator-app") {
     "include/CHIPProjectAppConfig.h",
     "main.cpp",
   ]
-
+  if (chip_build_libshell) {
+    sources += [ "src/EventHandlerLibShell.cpp" ]
+  }
   deps = [
     "${chip_root}/examples/platform/linux:app-main",
     "${chip_root}/examples/refrigerator-app/refrigerator-common",
