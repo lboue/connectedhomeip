@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include <ElectricalPowerMeasurementDelegate.h>
 #include <lib/core/CHIPError.h>
 
 namespace chip {
@@ -25,7 +26,8 @@ namespace app {
 namespace Clusters {
 namespace WaterHeaterManagement {
 
-CHIP_ERROR WhmApplicationInit(EndpointId endpointId);
+CHIP_ERROR WhmApplicationInit(EndpointId endpointId,
+                              chip::app::Clusters::ElectricalPowerMeasurement::ElectricalPowerMeasurementInstance & epmInstance);
 CHIP_ERROR WhmApplicationShutdown();
 
 } // namespace WaterHeaterManagement
