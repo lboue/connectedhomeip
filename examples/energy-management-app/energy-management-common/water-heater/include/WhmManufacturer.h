@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include <ElectricalPowerMeasurementDelegate.h>
 #include <DEMManufacturerDelegate.h>
 #include <WhmDelegate.h>
 #include <WhmInstance.h>
@@ -36,7 +37,14 @@ namespace WaterHeaterManagement {
 class WhmManufacturer : public DeviceEnergyManagement::DEMManufacturerDelegate
 {
 public:
-    WhmManufacturer(WaterHeaterManagementInstance * whmInstance) { mWhmInstance = whmInstance; }
+    WhmManufacturer(
+        WaterHeaterManagementInstance * whmInstance,
+        ElectricalPowerMeasurement::ElectricalPowerMeasurementInstance * EPMInstance
+    )
+    { 
+        mWhmInstance = whmInstance;
+        mEPMInstance = EPMInstance;
+    }
 
     WaterHeaterManagementInstance * GetWhmInstance() { return mWhmInstance; }
 
@@ -47,6 +55,15 @@ public:
             return mWhmInstance->GetDelegate();
         }
 
+        return nullptr;
+    }
+
+    ElectricalPowerMeasurement::ElectricalPowerMeasurementDelegate * GetEPMDelegate()
+    {
+        if (mEPMInstance)
+        {
+            return mEPMInstance->GetDelegate();
+        }
         return nullptr;
     }
 
@@ -147,8 +164,24 @@ public:
      */
     int64_t GetApproxEnergyDuringSession() override;
 
+    /**
+     * @brief   Allows a client application to initialise the Accuracy, Measurement types etc
+     */
+    CHIP_ERROR InitializePowerMeasurementCluster();
+
+    /**
+     * @brief   Allows a client application to send in power readings into the system
+     *
+     * @param[in]  aEndpointId       - Endpoint to send to EPM Cluster
+     * @param[in]  aActivePower_mW   - ActivePower measured in milli-watts
+     * @param[in]  aVoltage_mV       - Voltage measured in milli-volts
+     * @param[in]  aActiveCurrent_mA - ActiveCurrent measured in milli-amps
+     */
+    CHIP_ERROR SendPowerReading(EndpointId aEndpointId, int64_t aActivePower_mW, int64_t aVoltage_mV, int64_t aCurrent_mA) override;
+
 private:
     WaterHeaterManagementInstance * mWhmInstance;
+    ElectricalPowerMeasurement::ElectricalPowerMeasurementInstance * mEPMInstance;
 };
 
 /** @brief Helper function to return the singleton WhmManufacturer instance
