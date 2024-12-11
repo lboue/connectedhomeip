@@ -18,11 +18,22 @@
 
 #include <WhmInstance.h>
 #include <WhmManufacturer.h>
+#include <ElectricalPowerMeasurementDelegate.h>
+#include <ElectricalSensorInit.h>
 
 #include <app-common/zap-generated/ids/Attributes.h>
 #include <app-common/zap-generated/ids/Clusters.h>
 #include <app/clusters/water-heater-management-server/water-heater-management-server.h>
 #include <lib/support/logging/CHIPLogging.h>
+
+using namespace chip;
+using namespace chip::app;
+using namespace chip::app::DataModel;
+using namespace chip::app::Clusters;
+//using namespace chip::app::Clusters::DeviceEnergyManagement;
+using namespace chip::app::Clusters::ElectricalPowerMeasurement;
+//using namespace chip::app::Clusters::ElectricalEnergyMeasurement;
+//using namespace chip::app::Clusters::PowerTopology;
 
 using namespace chip;
 using namespace chip::app;
@@ -51,7 +62,7 @@ WhmManufacturer * GetWhmManufacturer()
  * create the Delegate first, then wrap it in the Instance
  * Then call the Instance->Init() to register the attribute and command handlers
  */
-CHIP_ERROR WhmInit(EndpointId endpointId)
+CHIP_ERROR WhmInit(EndpointId endpointId, ElectricalPowerMeasurementInstance & epmInstance)
 {
     CHIP_ERROR err;
 
@@ -131,7 +142,7 @@ CHIP_ERROR WhmManufacturerInit()
     }
 
     /* Now create WhmManufacturer */
-    gWhmManufacturer = std::make_unique<WhmManufacturer>(gWhmInstance.get());
+    gWhmManufacturer = std::make_unique<WhmManufacturer>(gWhmInstance.get(), &epmInstance);
     if (!gWhmManufacturer)
     {
         ChipLogError(AppServer, "Failed to allocate memory for WhmManufacturer");
