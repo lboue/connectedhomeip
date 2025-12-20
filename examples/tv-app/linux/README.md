@@ -37,7 +37,7 @@ Raspberry Pi Desktop 20.10 (aarch64)**
 
 ## Exercising Commissioning
 
--   Regular Commissioning
+### Regular Commissioning
 
 Start the tv-app. Set ports to not conflict with other Matter apps you might run
 on the same machine (chip-tool, tv-casting-app, etc)
@@ -83,7 +83,7 @@ Continue commissioning by providing the commissionee passcode
 
     $ controller ux ok 20202021
 
--   User Directed Commissioning (UDC)
+### User Directed Commissioning (UDC)
 
 Print out the cached list of UDC sessions
 
