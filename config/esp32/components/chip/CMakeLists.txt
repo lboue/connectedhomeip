@@ -325,6 +325,13 @@ endif()
 if (CHIP_PROJECT_CONFIG)
     chip_gn_arg_append("chip_project_config_include" "\"${CHIP_PROJECT_CONFIG}\"")
     chip_gn_arg_append("chip_system_project_config_include" "\"${CHIP_PROJECT_CONFIG}\"")
+    # Unlike the two above, chip_device_project_config_include (consumed by
+    # CHIPDeviceConfig.h for VendorName/ProductName/HardwareVersionString/
+    # SoftwareVersionString/TEST_SERIAL_NUMBER) is not wired to CONFIG_CHIP_PROJECT_CONFIG
+    # upstream -- src/platform/BUILD.gn defaults it to "", so every ESP32 app silently
+    # keeps connectedhomeip's TEST_VENDOR/TEST_PRODUCT/TEST_VERSION/TEST_SN placeholders
+    # regardless of this Kconfig option. Reuse the same project config file for it.
+    chip_gn_arg_append("chip_device_project_config_include" "\"${CHIP_PROJECT_CONFIG}\"")
 endif()
 
 if (CONFIG_ENABLE_ESP32_FACTORY_DATA_PROVIDER)
